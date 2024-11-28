@@ -26,6 +26,7 @@ export async function createPost(
   slug: string, 
   formState : CreatePostFromState, 
   formData: FormData) : Promise<CreatePostFromState> {
+  
   const result = createPostSchema.safeParse({
     title: formData.get('title'),
     content: formData.get('content')
@@ -58,6 +59,34 @@ export async function createPost(
     }
   }
 
+  let post : Post;
+  try {
+    post = await db.post.create({
+      data :{
+        title: result.data.title,
+        content: result.data.content,
+        userId: session.user.id!,
+        topicId: topic.id
+      }
+    })
+  } catch( err: unknown ) {
+    if(err instanceof Error) {
+      return {
+        errors :{
+          _form: [err.message]
+        }
+      }
+    } else {
+      return {
+        errors : {
+          _form :["Failed to create post"]
+        }
+      }
+    }
+  }
+
+  revalidatePath(paths.topicShow(slug));
+  redirect(paths.postShow(slug, post.id))
   return {
     errors : {}
   }
