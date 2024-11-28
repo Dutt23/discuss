@@ -7,9 +7,13 @@ import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/popover"
 import { createPost } from '@/actions';
 import FormButton from "../common/form-button";
 
-export default function PostCreateForm() {
+interface PostCreateFormProps {
+  slug: string;
+}
+export default function PostCreateForm({ slug } : PostCreateFormProps) {
 
-  const [formState, action, isPending]  = useActionState(createPost, { errors : {}})
+  const [formState, action, isPending]  = useActionState(createPost.bind(null, slug), 
+  { errors : {}})
   
   return (
     <Popover placement="left">

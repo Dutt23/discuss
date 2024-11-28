@@ -14,7 +14,7 @@ export default async function TopicShowPage({ params }: Readonly<TopicShowPagePr
       </div>
 
       <div>
-        <PostCreateForm />
+        <PostCreateForm slug={slug}/>
       </div>
     </div>
   )
