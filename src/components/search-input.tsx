@@ -1,12 +1,15 @@
 'use client';
 import { Input } from "@nextui-org/input";
 import { useSearchParams } from "next/navigation";
-
+import { search } from "@/actions";
 export default function SearchInput() {
   const searchParams = useSearchParams();
   return (
-  <Input 
-  defaultValue={searchParams.get('term') ?? ''}
-  />
+    <form action={search}>
+      <Input 
+       name="term"
+       defaultValue={searchParams.get('term') ?? ''}
+      />
+  </form>
 )
 }
