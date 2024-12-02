@@ -13,6 +13,7 @@
     "postinstall": "npx prisma generate"
   },
   "dependencies": {
+    "prisma": "6.0.0",
     "@auth/core": "^0.37.4",
     "@auth/prisma-adapter": "^2.7.4",
     "@nextui-org/react": "^2.4.8",
